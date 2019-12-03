@@ -51,7 +51,7 @@ const refresh = function refresh(initialize = false) {
     // Extend elements objects in $aosElements with their positions
     $aosElements = prepare($aosElements, options);
     // Perform scroll event, to refresh view and show/hide elements
-    handleScroll($aosElements, options.once);
+    handleScroll($aosElements, options.once, options.scrollingElement);
 
     return $aosElements;
   }
@@ -166,8 +166,8 @@ const init = function init(settings) {
   /**
    * Handle scroll event to animate elements on scroll
    */
-  window.addEventListener('scroll', throttle(() => {
-    handleScroll($aosElements, options.once);
+  (options.scrollingElement || window).addEventListener('scroll', throttle(() => {
+    handleScroll($aosElements, options.once, options.scrollingElement);
   }, options.throttleDelay));
 
   /**
